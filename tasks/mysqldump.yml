@@ -1,0 +1,12 @@
+---
+- name: Include tasks to stop service of dbs to backup
+  include_tasks:
+    name: manage_service.yml
+    apply:
+      vars:
+        service_state: stopped
+      
+- name: Dump mysql database
+  
+  
+
