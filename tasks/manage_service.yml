@@ -1,7 +1,7 @@
 ---
 - name: "{{ (service_state == 'stopped') | ternary('Stop', 'Start') }} service via systemctl"
   systemd:
-    name: "{{ item.service.name }}"
+    name: "{{ item.mysqldump.service.name }}"
     state: "{{ service_state }}"
   loop: "{{ mysql_dbs }}"
   when: > 
@@ -11,9 +11,10 @@
 
 - name: "{{ (service_state == 'stopped') | ternary('Stop', 'Start') }} service via /etc/init.d"
   service:
-    name: "{{ item.service.name }}"
+    name: "{{ item.mysqldump.service.name }}"
     state: "{{ service_state }}"
   loop: "{{ mysql_dbs }}"
   when: 
     - item.mysqldump.service.name is defined
+    - item.mysqldump.service.method is defined
     - item.mysqldump.service.method == 'service'

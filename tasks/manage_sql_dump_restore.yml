@@ -1,5 +1,5 @@
 ---
-- name: {{ (mysql_db_state == 'dump') | ternary('Backup', 'Import') }} mysql database
+- name: "{{ (mysql_db_state == 'dump') | ternary('Backup', 'Import') }} mysql database"
   mysql_db:
     name: "{{ item.db_name }}"
     login_host: "{{ item.login_host }}"
