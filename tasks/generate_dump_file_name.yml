@@ -4,7 +4,8 @@
     _dump_path: "/tmp/{{ temp_path }}"
   loop: "{{ mysql_dbs }}"
   vars:
-    temp_path: "{{ (item.mysqldump.backup is defined and item.mysqldump.backup.object_name is defined) | ternary (item.mysqldump.backup.object_name, item.id) }}_{{ ansible_date_time.date }}_{{ ansible_date_time.epoch }}.sql"
+    temp_path: "{{ (item | selectattr('mysqldump.backup.object_name', 'defined') | list | length > 0) | ternary (item.mysqldump.backup.object_name, item.id) }}_{{ ansible_date_time.date }}_{{ ansible_date_time.epoch }}.sql"
+#    temp_path: "{{ (item.mysqldump.backup is defined and item.mysqldump.backup.object_name is defined) | ternary (item.mysqldump.backup.object_name, item.id) }}_{{ ansible_date_time.date }}_{{ ansible_date_time.epoch }}.sql"
   register: _dump_name_facts
 
 - name: Create new list with dump_file
