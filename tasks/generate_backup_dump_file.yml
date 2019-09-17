@@ -1,7 +1,7 @@
 ---
 - name: Generate unqiue file path for dump file 
   set_fact:
-    _dump_path: "/tmp/{{ item.id }}_{{ ansible_date_time.date }}_{{ ansible_date_time.epoch }}.sql"
+    _dump_path: "/tmp/{{ item.mysqldump.backup.object_name | d(item.id) }}_{{ ansible_date_time.date }}_{{ ansible_date_time.epoch }}.sql"
   loop: "{{ mysql_dbs }}"
   register: _dump_name_facts
 

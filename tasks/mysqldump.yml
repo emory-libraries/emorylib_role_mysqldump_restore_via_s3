@@ -12,3 +12,7 @@
     apply:
       vars:
         mysql_db_state: dump
+
+- name: Include tasks for copying dump file to s3
+  include_tasks:
+    name: copy_dumps_to_s3.yml
