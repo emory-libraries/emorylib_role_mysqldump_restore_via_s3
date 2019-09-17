@@ -7,5 +7,5 @@
     apply:
       tags:
         - mysqldump
-    tags:
-      - mysqldump
+  tags:
+    - mysqldump
