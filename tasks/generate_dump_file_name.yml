@@ -1,14 +1,14 @@
 ---
-- name: Generate unqiue file path for dump file 
+- name: Generate unqiue file path for dump file
   set_fact:
-    _dump_path: "/tmp/{{ temp_path }}"
+    _dump_path: "/tmp/{{ temp_file_name }}"
   loop: "{{ mysql_dbs }}"
   vars:
-    temp_path: "{{ (item.mysqldump.backup | selectattr('object_name', 'defined') | list | length > 0) | ternary (item.mysqldump.backup.object_name, item.id) }}_{{ ansible_date_time.date }}_{{ ansible_date_time.epoch }}.sql"
-#    temp_path: "{{ (item.mysqldump.backup is defined and item.mysqldump.backup.object_name is defined) | ternary (item.mysqldump.backup.object_name, item.id) }}_{{ ansible_date_time.date }}_{{ ansible_date_time.epoch }}.sql"
+    temp_file_name: "{{ item.mysqldump.backup.object_name if (item.mysqldump.backup is defined and item.mysqldump.backup.object_name is defined) else item.id }}_{{ ansible_date_time.date }}_{{ ansible_date_time.epoch }}.sql"
   register: _dump_name_facts
 
 - name: Create new list with dump_file
   set_fact:
     mysql_dbs: "{{ mysql_dbs | d ([]) + [{ 'dump_file': item.ansible_facts._dump_path }] }}"
-  loop: _dump_name_facts.results
+  loop: "{{ _dump_name_facts.results }}"
+
