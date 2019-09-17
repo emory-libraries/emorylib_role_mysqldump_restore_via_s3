@@ -1,18 +1,18 @@
 ---
 - name: Include tasks to stop service of dbs to backup
   include_tasks:
-    name: manage_service.yml
+    file: manage_service.yml
     apply:
       vars:
         service_state: stopped
       
 - name: Include tasks for dumping mysql database
   include_tasks:
-    name: manage_sql_dump_restore.yml
+    file: manage_sql_dump_restore.yml
     apply:
       vars:
         mysql_db_state: dump
 
 - name: Include tasks for copying dump file to s3
   include_tasks:
-    name: copy_dumps_to_s3.yml
+    file: copy_dumps_to_s3.yml

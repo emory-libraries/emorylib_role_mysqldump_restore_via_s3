@@ -3,7 +3,7 @@
 #
 - name: Run logic for mysqldump
   include_tasks:
-    name: mysqldump.yml
+    file: mysqldump.yml
     apply:
       tags:
         - mysqldump
