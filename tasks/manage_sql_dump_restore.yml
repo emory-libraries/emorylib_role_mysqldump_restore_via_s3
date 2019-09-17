@@ -5,7 +5,7 @@
     login_host: "{{ item.login_host }}"
     login_user: "{{ item.login_user }}"
     login_password: "{{ item.login_password }}"
-    single_transation: "{{ (mysql_db_state == 'dump') | ternary(yes, omit) }}"
+    single_transation: "{{ (mysql_db_state == 'dump') | ternary('yes', omit) }}"
     state: "{{ mysql_db_state }}"
     target: "{{ item.dump_file }}"
   loop: "{{ mysql_dbs }}"

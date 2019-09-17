@@ -7,9 +7,6 @@
   when:
     - item.mysqldump.service.name | d (False)
     - item.mysqldump.service.method | d (True) != 'service'
-#     item.mysqldump.service.name is defined and
-#     item.mysqldump.service.method != 'service' or
-#     item.mysqldump.service.method is undefined
 
 - name: "{{ (service_state == 'stopped') | ternary('Stop', 'Start') }} service via /etc/init.d"
   service:
@@ -19,6 +16,3 @@
   when: 
     - item.mysqldump.service.name | d (False)
     - item.mysqldump.service.method | d (False) == 'service'
-#    - item.mysqldump.service.name is defined
-#    - item.mysqldump.service.method is defined
-#    - item.mysqldump.service.method == 'service'
