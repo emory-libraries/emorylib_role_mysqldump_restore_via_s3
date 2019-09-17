@@ -1,5 +1,5 @@
 ---
-- name: {{ (service_state == 'stopped') | ternary('Stop', 'Start') }} service via systemctl
+- name: "{{ (service_state == 'stopped') | ternary('Stop', 'Start') }} service via systemctl"
   systemd:
     name: "{{ item.service.name }}"
     state: "{{ service_state }}"
@@ -9,7 +9,7 @@
      item.mysqldump.service.method != 'service' or
      item.mysqldump.service.method is undefined
 
-- name:  {{ (service_state == 'stopped') | ternary('Stop', 'Start') }} service via /etc/init.d
+- name: "{{ (service_state == 'stopped') | ternary('Stop', 'Start') }} service via /etc/init.d"
   service:
     name: "{{ item.service.name }}"
     state: "{{ service_state }}"
