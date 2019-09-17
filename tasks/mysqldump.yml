@@ -5,6 +5,10 @@
     apply:
       vars:
         service_state: stopped
+
+- name: Include tasks for generating dump file name
+  include_tasks:
+    file: generate_dump_file_name.yml
       
 - name: Include tasks for dumping mysql database
   include_tasks:
