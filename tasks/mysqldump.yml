@@ -6,7 +6,9 @@
       vars:
         service_state: stopped
       
-- name: Dump mysql database
-  
-  
-
+- name: Include tasks for dumping mysql database
+  include_tasks:
+    name: manage_sql_dump_restore.yml
+    apply:
+      vars:
+        mysql_db_state: dump
