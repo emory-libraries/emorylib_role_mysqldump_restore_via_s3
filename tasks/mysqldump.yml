@@ -20,3 +20,10 @@
 - name: Include tasks for copying dump file to s3
   include_tasks:
     file: copy_dumps_to_s3.yml
+
+- name: Include tasks to start service of dbs to backup
+  include_tasks:
+    file: manage_service.yml
+    apply:
+      vars:
+        service_state: started
