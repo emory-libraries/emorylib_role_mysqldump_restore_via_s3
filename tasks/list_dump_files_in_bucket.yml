@@ -1,0 +1,7 @@
+---
+- name: List sql files in a specified bucket
+  aws_s3:
+    bucket: "{{ s3_bucket }}"
+    object: 
+    mode: list
+  loop: "{{ mysql_dbs }}"
